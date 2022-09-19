@@ -1,0 +1,81 @@
+#Listar todos
+GET http://localhost:8080/api/usuario
+Authorization: Basic joao@fiap.com.br 123
+
+###
+
+#Detalhes
+GET http://localhost:8080/api/usuario/2
+Authorization: Basic joao@fiap.com.br 123
+###
+
+#Apagar
+DELETE http://localhost:8080/api/usuario/2
+Authorization: Basic joao@fiap.com.br 123
+
+###
+
+#Cadastrar
+POST http://localhost:8080/api/usuario
+Content-Type: application/json
+
+{
+  "nome": "Camila",
+  "email": "cam.alves@gmail.com",
+  "foto": null,
+  "senha": "45@senha"
+}
+
+###
+
+# Alterar Usuario
+PUT http://localhost:8080/api/usuario/3
+Content-Type: application/json
+Authorization: Basic joao@fiap.com.br 123
+
+{
+  "nome": "Camila Alves",
+  "email": "cam.alves@gmail.com",
+  "foto": null,
+  "senha": "45@senha"
+} 
+###
+
+#Listar todos os diarios
+GET http://localhost:8080/api/diario
+Authorization: Basic joao@fiap.com.br 123
+
+###
+
+# Diario pelo id
+GET http://localhost:8080/api/diario/1
+Authorization: Basic joao@fiap.com.br 123
+###
+
+# Deletar diario
+DELETE http://localhost:8080/api/diario/2
+Authorization: Basic joao@fiap.com.br 123
+###
+
+# Criar um diário
+POST http://localhost:8080/api/diario
+Content-Type: application/json
+Authorization: Basic joao@fiap.com.br 123
+
+{
+  "titulo": "Me sinto ótima",
+  "conteudo": "Hoje conheci o museu de história natural e me fez pensar...",
+  "data": "2022-09-15"
+}
+###
+
+# Editar diario
+PUT  http://localhost:8080/api/diario/3
+Content-Type: application/json
+Authorization: Basic joao@fiap.com.br 123
+
+{
+  "titulo": "Me sinto ótima",
+  "conteudo": "Ontem conheci o museu de história natural e me fez pensar...",
+  "data": "2022-09-15"
+}
