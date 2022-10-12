@@ -12,12 +12,19 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.Assert;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
+import br.com.fiap.merakiapi.dto.UsuarioDto;
 
 @Entity
 @Table(name="t_mrk_usuario")
@@ -26,21 +33,26 @@ public class Usuario implements UserDetails{
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="nm_usuario",length = 100,nullable=false)
+    @NotBlank @Column(name="nm_usuario",length = 100,nullable=false)
     private String nome;
 
-    @Column(name="ds_email",length = 255,nullable=false)
+    @Email @Column(name="ds_email",length = 255,nullable=false)
     private String email;
 
     @Lob @Column(name="ds_foto",length = 300,nullable=true)
     private byte[] foto; 
 
-    @Column(name="ds_senha",length = 300,nullable=false)
+    @Size(min=8)@Column(name="ds_senha",length = 300,nullable=false)
+    @JsonProperty(access = Access.WRITE_ONLY)
     private String senha;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Atribuicao> atribuicoes;
 
+
+    public UsuarioDto toDto(){
+        return new UsuarioDto(id, nome, email, foto);
+    }
 
     public Usuario nome(String nome){
         Assert.notNull(nome, "nome é obrigatório");
