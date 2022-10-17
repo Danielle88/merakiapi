@@ -21,14 +21,14 @@ public class SecurityConfiguration {
             .authorizeHttpRequests()
                 //usuario
                 .antMatchers(HttpMethod.GET, "/api/usuario/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/usuario").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/api/usuario/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/usuario").authenticated()
+                .antMatchers(HttpMethod.DELETE, "/api/usuario/**").authenticated()
                 .antMatchers(HttpMethod.PUT, "/api/usuario/**").authenticated()
                 //diário
-                .antMatchers(HttpMethod.GET, "/api/diario/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/diario/**").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/api/diario/**").permitAll()
-                .antMatchers(HttpMethod.PUT, "/api/diario/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/diario/**").authenticated()
+                .antMatchers(HttpMethod.POST, "/api/diario/**").authenticated()
+                .antMatchers(HttpMethod.DELETE, "/api/diario/**").authenticated()
+                .antMatchers(HttpMethod.PUT, "/api/diario/**").authenticated()
 
                 //Login
                 .antMatchers(HttpMethod.POST, "/api/auth").permitAll()
@@ -43,7 +43,7 @@ public class SecurityConfiguration {
             .and()
                 .headers().frameOptions().disable()
             .and()
-                //.addFilterBefore(new AuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new AuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
             ;
         return http.build();
 
